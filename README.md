@@ -1,5 +1,7 @@
 ## Redis Batch
 
+![tests](https://github.com/avemark/redis_batch_rb/actions/workflows/tests.yml/badge.svg)
+
 A redis queue with reliable multi-element dequeue, intended for work aggregation. 
 
 Common background work libraries like Resque, Sidekiq and GoodJob assume no coherence in 
