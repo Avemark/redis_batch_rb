@@ -3,6 +3,14 @@ require 'ostruct'
 module RedisBatch
   # Add configuration to a Singleton
   module Configurable
+    class Configuration
+      def initialize(redis:)
+        @redis = redis
+      end
+
+      attr_accessor :redis
+    end
+
     def configure
       yield configuration
     end
@@ -12,7 +20,7 @@ module RedisBatch
     end
 
     def configuration
-      @configuration ||= OpenStruct.new(default_configuration)
+      @configuration ||= Configuration.new(**default_configuration)
     end
 
     private

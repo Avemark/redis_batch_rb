@@ -7,19 +7,25 @@ module RedisBatch
     extend RedisBatch::Configurable
 
     def initialize(configuration)
-      @redis_client = configuration.redis
-    end
-
-    def respond_to_missing?(...)
-      @redis_client.respond_to?(...)
-    end
-
-    def method_missing(method, *args, **kwargs, &block)
-      if @redis_client.respond_to?(method)
-        @redis_client.send(method, *args, **kwargs, &block)
+      if configuration.redis.respond_to?(:with)
+        @connection_pool = configuration.redis
       else
-        super
+        @connection_pool = ConnectionPool.new(size: 1, timeout: 1) {
+          configuration.redis
+        }
       end
+    end
+
+    def ping
+      @connection_pool.with(&:ping)
+    end
+
+    def with(...)
+      @connection_pool.with(...)
+    end
+
+    def pool
+      @connection_pool
     end
   end
 end
