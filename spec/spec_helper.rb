@@ -1,7 +1,7 @@
 require './lib/redis_batch'
 
 RedisBatch.configure do |config|
-  config.redis = Redis.new
+  config.redis = ConnectionPool.new { Redis.new }
 end
 
 RSpec.configure do |config|
