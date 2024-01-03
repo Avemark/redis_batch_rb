@@ -1,3 +1,5 @@
+require "spec_helper"
+
 RSpec.describe RedisBatch::Client do
   it "Wraps a redis client" do
     redis_client = RedisBatch::Client.configuration.redis

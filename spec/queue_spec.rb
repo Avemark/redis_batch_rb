@@ -1,3 +1,5 @@
+require "spec_helper"
+
 RSpec.describe RedisBatch::Queue do
   let(:redis_client) { RedisBatch.configuration.redis }
   describe "#add" do
