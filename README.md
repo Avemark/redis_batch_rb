@@ -1,6 +1,6 @@
 ## Redis Batch
 
-![tests](https://github.com/avemark/redis_batch_rb/actions/workflows/tests.yml /badge.svg)
+![tests](https://github.com/avemark/redis_batch_rb/actions/workflows/tests.yaml/badge.svg)
 
 A redis queue with reliable multi-element dequeue, intended for work aggregation. 
 
