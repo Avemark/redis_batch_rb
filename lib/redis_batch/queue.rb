@@ -54,7 +54,7 @@ module RedisBatch
     end
 
     def take_key
-      @take_key ||= "redis_batch/#{@namespace}_takeout_#{Thread.current.native_thread_id}"
+      @take_key ||= "RedisBatch/#{@namespace}_takeout_#{Thread.current.native_thread_id}"
     end
   end
 end
