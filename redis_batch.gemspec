@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = "redis_batch"
-  s.version     = "0.0.1"
+  s.version     = "0.0.2"
   s.summary     = "Redis based work queue."
   s.description = "A minimal gem for safely pushing data onto redis and taking it back out in batches of any size. Designed to work well in a multi host/thread environment."
   s.authors     = ["Christian Avemark"]
