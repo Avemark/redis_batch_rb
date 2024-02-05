@@ -48,6 +48,16 @@ RSpec.describe RedisBatch::Queue do
 
       base_queue_contents = redis_client.with { |redis| redis.lrange(redis_key, 0, -1)}
       expect(base_queue_contents).to eq(["baz"])
+
+      queue.take(count: 2) do |elements|
+        expect(elements).to eq(["baz"])
+
+        base_queue_contents = redis_client.with { |redis| redis.lrange(redis_key, 0, -1)}
+        expect(base_queue_contents).to be_empty
+      end
+
+      base_queue_contents = redis_client.with { |redis| redis.lrange(redis_key, 0, -1)}
+      expect(base_queue_contents).to be_empty
     end
 
     it "restores elements on failure" do

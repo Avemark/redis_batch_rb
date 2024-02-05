@@ -3,6 +3,7 @@ module RedisBatch
     def initialize(namespace = self.class.name)
       @namespace = namespace
       @client = Client.instance
+      @client.with  { |redis| Functions.function_load(redis) }
     end
 
     def add(*items)
@@ -28,9 +29,7 @@ module RedisBatch
 
     def take(count: 1, client: @client)
       values = client.with do |redis|
-        redis.multi do |transaction|
-          count.times.map { transaction.lmove(queue_key, take_key, :left, :right) }
-        end
+        redis.call("FCALL", "rb_lmove", 2, queue_key, take_key, count)
       end
       yield values
       client.with { |redis| redis.del(take_key) }
@@ -42,10 +41,7 @@ module RedisBatch
     private
 
     def abort_processing(key, redis)
-      recover_count = redis.llen(key)
-      redis.multi do |transaction|
-        recover_count.times { transaction.lmove(take_key, queue_key, :right, :left) }
-      end
+      redis.call("FCALL", "rb_lrestore", 2, key, queue_key)
     end
 
     def queue_key
