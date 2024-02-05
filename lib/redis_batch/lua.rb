@@ -1,5 +1,5 @@
 module RedisBatch
-  class Functions
+  class Lua
     def self.function_load(redis)
       redis.call("FUNCTION", "LOAD", "REPLACE", redis_batch_lua)
     end

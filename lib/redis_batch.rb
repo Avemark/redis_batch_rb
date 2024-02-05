@@ -1,8 +1,8 @@
 require 'redis'
-require './lib/redis_batch/configurable'
-require './lib/redis_batch/client'
-require './lib/redis_batch/functions'
-require './lib/redis_batch/queue'
+require 'redis_batch/configurable'
+require 'redis_batch/lua'
+require 'redis_batch/client'
+require 'redis_batch/queue'
 
 module RedisBatch
   Error = Class.new(StandardError)

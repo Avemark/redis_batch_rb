@@ -3,7 +3,7 @@ module RedisBatch
     def initialize(namespace = self.class.name)
       @namespace = namespace
       @client = Client.instance
-      @client.with  { |redis| Functions.function_load(redis) }
+      @client.with  { |redis| RedisBatch::Lua.function_load(redis) }
     end
 
     def add(*items)
