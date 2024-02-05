@@ -2,7 +2,8 @@
 
 ![tests](https://github.com/avemark/redis_batch_rb/actions/workflows/tests.yaml/badge.svg)
 
-A redis queue with reliable multi-element dequeue, intended for work aggregation. 
+A redis queue with reliable multi-element dequeue, intended for work aggregation.  
+Requires redis version >= 7
 
 Common background work libraries like Resque, Sidekiq and GoodJob assume no coherence in 
 the elements of their work queues, and will act on elements one by one.
