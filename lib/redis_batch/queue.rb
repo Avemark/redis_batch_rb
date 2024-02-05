@@ -19,9 +19,8 @@ module RedisBatch
 
     def abort_all
       return unless processing?
-      keys = @client.with { |redis| redis.keys("#{@namespace}_takeout_*") }
-      client.with do |redis|
-        keys.each do |key|
+      @client.with do |redis|
+        redis.keys("#{@namespace}_takeout_*").each do |key|
           abort_processing(key, redis)
         end
       end
